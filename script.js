@@ -24,7 +24,7 @@ function operate(operator, a, b) {
       return add(a, b);
     case "-":
       return substract(a, b);
-    case "*":
+    case "x":
       return multiply(a, b);
     case "÷":
       if (b === 0) {
