@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
     <main>
@@ -13,37 +12,70 @@
         <div id="display-screen">0</div>
         <div class="buttons-grid">
           <button
-            id="clear-button"
+            class="clear-btn"
             onclick="this.blur()"
             style="grid-column: span 2"
           >
             AC
           </button>
           <button
-            id="delete-button"
-            onclick="this.blue()"
+            class="delete-btn"
+            onclick="this.blur()"
             style="grid-column: span 2"
           >
             DEL
           </button>
-          <button class="btn" onclick="this.blur()">7</button>
-          <button class="btn" onclick="this.blur()">8</button>
-          <button class="btn" onclick="this.blur()">9</button>
-          <button class="btn" onclick="this.blur()">÷</button>
-          <button class="btn" onclick="this.blur()">4</button>
-          <button class="btn" onclick="this.blur()">5</button>
-          <button class="btn" onclick="this.blur()">6</button>
-          <button class="btn" onclick="this.blur()">x</button>
-          <button class="btn" onclick="this.blur()">1</button>
-          <button class="btn" onclick="this.blur()">2</button>
-          <button class="btn" onclick="this.blur()">3</button>
-          <button class="btn" onclick="this.blur()">-</button>
-          <button class="btn" onclick="this.blur()">.</button>
-          <button class="btn" onclick="this.blur()">0</button>
-          <button class="btn" onclick="this.blur()">=</button>
-          <button class="btn" onclick="this.blur()">+</button>
+          <button class="operand-btn" data-operand="7" onclick="this.blur()">
+            7
+          </button>
+          <button class="operand-btn" data-operand="8" onclick="this.blur()">
+            8
+          </button>
+          <button class="operand-btn" data-operand="9" onclick="this.blur()">
+            9
+          </button>
+          <button class="operator-btn" data-operator="÷" onclick="this.blur()">
+            ÷
+          </button>
+          <button class="operand-btn" data-operand="4" onclick="this.blur()">
+            4
+          </button>
+          <button class="operand-btn" data-operand="5" onclick="this.blur()">
+            5
+          </button>
+          <button class="operand-btn" data-operand="6" onclick="this.blur()">
+            6
+          </button>
+          <button class="operator-btn" data-operator="x" onclick="this.blur()">
+            x
+          </button>
+          <button class="operand-btn" data-operand="1" onclick="this.blur()">
+            1
+          </button>
+          <button class="operand-btn" data-operand="2" onclick="this.blur()">
+            2
+          </button>
+          <button class="operand-btn" data-operand="3" onclick="this.blur()">
+            3
+          </button>
+          <button class="operator-btn" data-operator="-" onclick="this.blur()">
+            -
+          </button>
+          <button class="operator-btn" data-operator="." onclick="this.blur()">
+            .
+          </button>
+          <button class="operand-btn" data-operand="0" onclick="this.blur()">
+            0
+          </button>
+          <button class="operator-btn" data-operator="=" onclick="this.blur()">
+            =
+          </button>
+          <button class="operator-btn" data-operator="+" onclick="this.blur()">
+            +
+          </button>
         </div>
       </div>
     </main>
+    <script src="script.js" defer></script>
   </body>
 </html>
