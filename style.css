@@ -36,7 +36,10 @@ main {
   margin: 0 auto;
 }
 
-.btn {
+.operand-btn,
+.operator-btn,
+.clear-btn,
+.delete-btn {
   font-size: 18px;
   text-align: center;
   cursor: pointer;
