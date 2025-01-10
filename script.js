@@ -1,7 +1,7 @@
-let firstOperand = "";
-let secondOperand = "";
-let currentOperator = "";
-let currentOperand = "";
+let currInput = "";
+let previousInput = "";
+let operator = "";
+let resetDisplay = false;
 
 const screen = document.querySelector("#display-screen");
 const operands = document.querySelectorAll(".operand-btn");
@@ -9,60 +9,111 @@ const operators = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 
+function handleInput(input) {
+  if (isNumber(input)) {
+    displayOperand(input);
+  } else if (isOperator(input)) {
+    setOperator(input);
+  } else if (input === "=") {
+    operate();
+  } else if (input === "AC") {
+    clear();
+  } else if (input === "DEL") {
+    backspace();
+  } else if (input === ".") {
+    appendDecimal();
+  }
+}
+
+function isNumber(value) {
+  return !isNaN(value);
+}
+
+function isOperator(value) {
+  return ["+", "-", "x", "÷"].includes(value);
+}
+
+function setOperator(op) {
+  if (operator) operate();
+  previousInput = currInput;
+  operator = op;
+  resetDisplay = true;
+}
+
+function appendDecimal() {
+  if (!screen.textContent.includes(".")) {
+    screen.textContent += ".";
+  }
+  currInput = screen.textContent;
+}
+
+function clear() {
+  screen.textContent = "0";
+  currInput = "";
+  previousInput = "";
+  operator = "";
+  resetDisplay = false;
+}
+
+function backspace() {
+  screen.textContent = screen.textContent.slice(0, -1);
+  currInput = screen.textContent;
+}
+
+function displayOperand(value) {
+  if (resetDisplay) {
+    screen.textContent = value;
+    resetDisplay = false;
+  } else {
+    screen.textContent =
+      screen.textContent === "0" ? value : screen.textContent + value;
+  }
+  currInput = screen.textContent;
+}
+
+function operate() {
+  if (!operator || !previousInput) return;
+
+  const prev = parseFloat(previousInput);
+  const curr = parseFloat(currInput);
+  let result = 0;
+
+  switch (operator) {
+    case "+":
+      result = prev + curr;
+      break;
+    case "-":
+      result = prev - curr;
+      break;
+    case "x":
+      result = prev * curr;
+      break;
+    case "÷":
+      result = curr !== 0 ? prev / curr : "Error";
+      break;
+  }
+  screen.textContent = result;
+  currInput = result.toString();
+  operator = "";
+  resetDisplay = true;
+}
+
 operands.forEach((btn) => {
-  btn.addEventListener("click", () => displayOperand(btn.dataset.operand));
+  btn.addEventListener("click", () => {
+    handleInput(btn.dataset.operand);
+  });
 });
 
 operators.forEach((btn) => {
-  btn.addEventListener("click", () => displayOperand(btn.dataset.operator));
+  btn.addEventListener("click", () => {
+    handleInput(btn.dataset.operator);
+  });
 });
 
 clearBtn.addEventListener("click", () => {
-  screen.textContent = "";
-  currentOperand = "";
+  handleInput(clearBtn.dataset.clear);
 });
 
 deleteBtn.addEventListener("click", () => {
-  screen.textContent = screen.textContent.slice(0, -1);
-  currentOperand = screen.textContent;
+  handleInput(deleteBtn.dataset.delete);
 });
-
-function displayOperand(value) {
-  currentOperand += value;
-  screen.textContent = currentOperand;
-}
-
-function add(a, b) {
-  return a + b;
-}
-
-function substract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
-function divide(a, b) {
-  return a / b;
-}
-
-function operate(operator, a, b) {
-  switch (operator) {
-    case "+":
-      return add(a, b);
-    case "-":
-      return substract(a, b);
-    case "x":
-      return multiply(a, b);
-    case "÷":
-      if (b === 0) {
-        return null;
-      } else {
-        return divide(a, b);
-      }
-    default:
-      return null;
-  }
-}
