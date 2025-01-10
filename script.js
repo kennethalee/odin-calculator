@@ -30,7 +30,7 @@ function isNumber(value) {
 }
 
 function isOperator(value) {
-  return ["+", "-", "x", "÷"].includes(value);
+  return ["+", "-", "x", "/"].includes(value);
 }
 
 function setOperator(op) {
@@ -88,7 +88,7 @@ function operate() {
     case "x":
       result = prev * curr;
       break;
-    case "÷":
+    case "/":
       result = curr !== 0 ? prev / curr : "Error";
       break;
   }
