@@ -26,7 +26,7 @@ function handleInput(input) {
 }
 
 function isNumber(value) {
-  return !isNaN(value);
+  return !isNaN(value) && value !== " ";
 }
 
 function isOperator(value) {
@@ -56,7 +56,7 @@ function clear() {
 }
 
 function backspace() {
-  screen.textContent = screen.textContent.slice(0, -1);
+  screen.textContent = screen.textContent.slice(0, -1) || "0";
   currInput = screen.textContent;
 }
 
@@ -117,3 +117,29 @@ clearBtn.addEventListener("click", () => {
 deleteBtn.addEventListener("click", () => {
   handleInput(deleteBtn.dataset.delete);
 });
+
+document.addEventListener("keydown", handleKeyPress);
+
+document.addEventListener("keydown", (e) => {
+  if (["Enter", "Backspace"].includes(e.key)) {
+    event.preventDefault();
+  }
+});
+
+function handleKeyPress(event) {
+  const key = event.key;
+
+  if (isNumber(key)) {
+    displayOperand(key);
+  } else if (isOperator(key)) {
+    setOperator(key);
+  } else if (key === "Enter" || key === "=") {
+    operate();
+  } else if (key === "Escape") {
+    clear();
+  } else if (key === "Backspace") {
+    backspace();
+  } else if (key === ".") {
+    appendDecimal();
+  }
+}
